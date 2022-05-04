@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:colours/colours.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kozarni_ecome/controller/home_controller.dart';
@@ -31,7 +32,7 @@ class HotView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 20),
+                  padding: const EdgeInsets.only(left: 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -42,19 +43,9 @@ class HotView extends StatelessWidget {
                           fontWeight: FontWeight.w700,
                         ),
                       ),
+
                       SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        "${controller.hot()[i].price}  Ks",
-                        style: TextStyle(
-                          color: homeIndicatorColor,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5,
+                        height: 10,
                       ),
 
                       Row(
@@ -62,9 +53,9 @@ class HotView extends StatelessWidget {
                           5,
                               (index) => Icon(
                             Icons.star,
-                            size: 16,
+                            size: 18,
                             color: index <= controller.getItems()[i].star
-                                ? homeIndicatorColor
+                                ? Colours.gold
                                 : Colors.grey,
                           ),
                         ),
@@ -72,11 +63,37 @@ class HotView extends StatelessWidget {
                     ],
                   ),
                 ),
+
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "${controller.hot()[i].discountprice}  Ks",
+                      style: TextStyle(
+                        color: homeIndicatorColor,
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "${controller.hot()[i].price}  Ks",
+                      style: TextStyle(
+                        decoration: TextDecoration.lineThrough,
+                        color: Colors.red,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+
+                  ],
+                ),
+
                 ClipRRect(
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(6),
-                    bottomRight: Radius.circular(6),
-                  ),
+                  borderRadius: BorderRadius.circular(5),
                   child: CachedNetworkImage(
                     imageUrl: controller.hot()[i].photo,
                     // "$baseUrl$itemUrl${controller.hot()[i].photo}/get",

@@ -1,9 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:colours/colours.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:get/get_instance/src/extension_instance.dart';
-import 'package:get/route_manager.dart';
 import 'package:kozarni_ecome/controller/home_controller.dart';
 import 'package:kozarni_ecome/data/constant.dart';
 import 'package:kozarni_ecome/data/enum.dart';
@@ -78,7 +77,7 @@ class CartView extends StatelessWidget {
                             ),
                             SizedBox(height: 5),
                             Text(
-                              "${controller.myCart[i].priceType.split('.').last} \n ${controller.myCart[i].price} ကျပ်",
+                              "${controller.myCart[i].showcaseMap["text"]} \n ${controller.myCart[i].showcaseMap["price"]} ကျပ်",
                               style: TextStyle(fontSize: 12),
                             ),
                           ],
@@ -114,145 +113,210 @@ class CartView extends StatelessWidget {
         GetBuilder<HomeController>(builder: (controller) {
           return Container(
             width: double.infinity,
-            height: 200,
+            height: 250,
             child: Card(
               margin: EdgeInsets.only(
                 top: 10,
                 left: 10,
                 right: 10,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: 10,
-                      left: 10,
-                      right: 10,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "ကုန်ပစ္စည်းအတွက် ကျသင့်ငွေ",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        Text(
-                          "${controller.subTotal} ကျပ်",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: 10,
-                      left: 10,
-                      right: 10,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "ပို့ဆောင်စရိတ်",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        //DropDown TownShip List
-                        Container(
-                          width: 100,
-                          height: 50,
-                          child:
-                              GetBuilder<HomeController>(builder: (controller) {
-                            return InkWell(
-                              onTap: () {
-                                //Show Dialog
-                                showDialog(
-                                    barrierColor: Colors.white.withOpacity(0),
-                                    context: context,
-                                    builder: (context) {
-                                      return divisionDialogWidget();
-                                    });
-                              },
-                              child: Row(children: [
-                                //Township Name
-                                Expanded(
-                                  child: Text(
-                                    controller.townShipNameAndFee["townName"] ??
-                                        "မြို့နယ်",
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                  ),
-                                ),
-                                //DropDown Icon
-                                Expanded(
-                                    child: Icon(FontAwesomeIcons.angleDown)),
-                              ]),
-                            );
-                          }),
-                        ),
-                        GetBuilder<HomeController>(builder: (controller) {
-                          return Text(
-                            controller.townShipNameAndFee.isEmpty
-                                ? "0ကျပ်"
-                                : " ${controller.townShipNameAndFee["fee"]} ကျပ်",
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //Usual Product
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 10,
+                        left: 10,
+                        right: 10,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "ပုံမှန်ကုန်ပစ္စည်းအတွက် ကျသင့်ငွေ   "
+                            "${controller.totalUsualProductCount} ခု ",
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
                             ),
-                          );
-                        }),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: double.infinity,
-                    height: 40,
-                    margin: EdgeInsets.only(
-                      left: 10,
-                      top: 10,
-                      right: 10,
-                    ),
-                    padding: EdgeInsets.only(left: 10, right: 10),
-                    decoration: BoxDecoration(
-                      color: Color.fromRGBO(25, 25, 25, 1),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "စုစုပေါင်း ကျသင့်ငွေ   =  ",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
                           ),
-                        ),
-                        GetBuilder<HomeController>(builder: (controller) {
-                          return Text(
-                            controller.townShipNameAndFee.isEmpty
-                                ? "${controller.subTotal}"
-                                : "${controller.subTotal + controller.townShipNameAndFee["fee"]} ကျပ်",
+                          Text(
+                            //Change Variable
+                            "${(controller.totalUsualPrice).round()} ကျပ်",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    //Hot Special Product
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 10,
+                        left: 10,
+                        right: 10,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "အထူးကုန်ပစ္စည်းအတွက် ကျသင့်ငွေ   "
+                            "${controller.totalHotProductCount} ခု",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          Text(
+                            "${controller.totalHotPrice} ကျပ်",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 10,
+                        left: 10,
+                        right: 10,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "ကုန်ပစ္စည်းအတွက် ကျသင့်ငွေ",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          Text(
+                            "${controller.subTotal} ကျပ်",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 10,
+                        left: 10,
+                        right: 10,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+
+                          //DropDown TownShip List
+                          Container(
+                            width: 150,
+                            height: 50,
+                            child: GetBuilder<HomeController>(
+                                builder: (controller) {
+                              return InkWell(
+                                onTap: () {
+                                  //Show Dialog
+                                  showDialog(
+                                      barrierColor: Colors.white.withOpacity(0),
+                                      context: context,
+                                      builder: (context) {
+                                        return divisionDialogWidget();
+                                      });
+                                },
+                                child: Row(children: [
+                                  //Township Name
+                                  Expanded(
+                                    child: Text(
+                                      controller
+                                              .townShipNameAndFee["townName"] ??
+                                          "မြို့နယ်",
+                                      style: TextStyle(
+                                        fontSize: 12
+
+                                      ),
+                                    ),
+                                  ),
+                                  //DropDown Icon
+                                  Expanded(
+                                      child: Icon(FontAwesomeIcons.angleDown)),
+                                ]),
+                              );
+                            }),
+                          ),
+
+                          Text(
+                            "ပို့ဆောင်စရိတ်",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+
+                          GetBuilder<HomeController>(builder: (controller) {
+                            return Text(
+                              controller.townShipNameAndFee.isEmpty
+                                  ? "0 ကျပ်"
+                                  : " ${controller.townShipNameAndFee["fee"]} ကျပ်",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            );
+                          }),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: 40,
+                      margin: EdgeInsets.only(
+                        left: 10,
+                        top: 10,
+                        right: 10,
+                      ),
+                      padding: EdgeInsets.only(left: 10, right: 10),
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(25, 25, 25, 1),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "စုစုပေါင်း ကျသင့်ငွေ   =  ",
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
-                          );
-                        }),
-                      ],
+                          ),
+                          GetBuilder<HomeController>(builder: (controller) {
+                            return Text(
+                              controller.townShipNameAndFee.isEmpty
+                                  ? "${controller.subTotal}"
+                                  : "${controller.subTotal + controller.townShipNameAndFee["fee"]} ကျပ်",
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            );
+                          }),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );
@@ -263,7 +327,7 @@ class CartView extends StatelessWidget {
           margin: EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 10),
           child: ElevatedButton(
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(homeIndicatorColor),
+              backgroundColor: MaterialStateProperty.all(Colours.gold),
               foregroundColor: MaterialStateProperty.all(Colors.white),
             ),
             onPressed: () {
@@ -284,7 +348,10 @@ class CartView extends StatelessWidget {
                 Get.snackbar('Error', "Cart is empty");
               }
             },
-            child: Text("Order တင်ရန် နှိပ်ပါ"),
+            child: Text("Order တင်ရန် နှိပ်ပါ",
+            style: TextStyle(
+              color: Colours.black
+            ),),
           ),
         )
       ],
@@ -298,13 +365,9 @@ class CartView extends StatelessWidget {
         return Container(
           decoration: BoxDecoration(
             border: Border(
-              top: BorderSide(),
-              bottom: BorderSide(),
-              left: BorderSide(),
-              right: BorderSide(),
             ),
           ),
-          width: 170,
+          width: double.infinity,
           child: ListView.builder(
             shrinkWrap: true,
             itemCount: divisionList.length,
@@ -331,16 +394,17 @@ class CartView extends StatelessWidget {
                       ? Colors.orange
                       : Colors.white,
                   duration: const Duration(milliseconds: 200),
-                  child:
-                      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                    //Text
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: Text(divisionList[divisionIndex].name),
-                    ),
-                    SizedBox(width: 10),
-                    Icon(FontAwesomeIcons.angleRight),
-                  ]),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        //Text
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 10),
+                          child: Text(divisionList[divisionIndex].name),
+                        ),
+                        SizedBox(width: 10),
+                        Icon(FontAwesomeIcons.angleUp),
+                      ]),
                 ),
               );
             },
@@ -355,14 +419,10 @@ class CartView extends StatelessWidget {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
-        width: 230,
-        height: MediaQuery.of(Get.context!).size.height * 0.4,
+        width: MediaQuery.of(Get.context!).size.width,
+        height: MediaQuery.of(Get.context!).size.height,
         decoration: BoxDecoration(
           border: Border(
-            top: BorderSide(),
-            bottom: BorderSide(),
-            left: BorderSide(),
-            right: BorderSide(),
           ),
           color: Colors.white,
         ),
@@ -417,7 +477,7 @@ class PaymentOptionContent extends StatelessWidget {
           options: PaymentOptions.CashOnDelivery,
           icon: FontAwesomeIcons.truck,
           iconColor: Colors.amber,
-          text: "Cash On Delivery",
+          text: "အထည်ရောက် ငွေချေမည်",
         ),
         SizedBox(height: 5),
         CustomCheckBox(
@@ -425,7 +485,7 @@ class PaymentOptionContent extends StatelessWidget {
           options: PaymentOptions.PrePay,
           icon: FontAwesomeIcons.moneyBill,
           iconColor: Colors.blue,
-          text: "Pre-Pay",
+          text: "ကြိုတင်ငွေပေးချေမည်",
         ),
       ]),
     );
@@ -439,7 +499,7 @@ Widget nextButton() {
     height: 50,
     width: double.infinity,
     decoration: BoxDecoration(
-      color: Colors.orange,
+      color: Colours.gold,
       borderRadius: BorderRadius.only(
         bottomLeft: Radius.circular(20),
         bottomRight: Radius.circular(20),
@@ -453,7 +513,7 @@ Widget nextButton() {
           Get.toNamed(checkOutScreen);
         }
       },
-      child: Text("Next  ➡", style: TextStyle(color: Colors.white)),
+      child: Text("Next    ➡", style: TextStyle(color: Colors.black)),
     ),
   );
 }

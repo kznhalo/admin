@@ -19,7 +19,7 @@ class _ManagePartnerUserState extends State<ManagePartnerUser> {
       backgroundColor: scaffoldBackground,
       appBar: AppBar(
         title: Text(
-          "𝐂𝐢𝐧𝐝𝐲 Export & Fashion Clothing Brand",
+          "𝑯𝑨𝑳𝑶 𝑭𝒂𝒔𝒉𝒊𝒐𝒏 𝑺𝒕𝒂𝒓",
           style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -36,16 +36,22 @@ class _ManagePartnerUserState extends State<ManagePartnerUser> {
           ),
         ),
         actions: [
-          OutlinedButton(
-            onPressed: () {
-              Get.put(CreatePartnerAccountController());
-              Get.defaultDialog(
-                contentPadding: EdgeInsets.all(20),
-                title: "Create Partner Account",
-                content: InputFormWidget(),
-              );
-            },
-            child: Text("Add partner user"),
+          Padding(
+            padding: const EdgeInsets.only(top: 5, right: 10),
+            child: OutlinedButton(
+              onPressed: () {
+                Get.put(CreatePartnerAccountController());
+                Get.defaultDialog(
+                  contentPadding: EdgeInsets.all(20),
+                  title: "Create Partner Account",
+                  content: InputFormWidget(),
+                );
+              },
+              child: Text("Add partner user",
+              style: TextStyle(
+                color: Colors.indigo
+              ),),
+            ),
           ),
         ],
       ),
@@ -127,7 +133,10 @@ class InputFormWidget extends StatelessWidget {
                             ? CircularProgressIndicator(
                                 color: scaffoldBackground,
                               )
-                            : Text("Create"),
+                            : Text("Create",
+                        style: TextStyle(
+                          color: Colors.black
+                        ),),
                       ),
                     ),
                   ),

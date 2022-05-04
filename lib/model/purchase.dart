@@ -10,6 +10,7 @@ class PurchaseModel {
   final String address;
   final String? bankSlipImage;
   final List deliveryTownshipInfo;
+  final int? totalCost;
   final DateTime? dateTime;
 
   PurchaseModel({
@@ -21,6 +22,7 @@ class PurchaseModel {
     required this.address,
     required this.deliveryTownshipInfo,
     required this.bankSlipImage,
+    required this.totalCost,
     this.dateTime,
   });
 
@@ -34,6 +36,7 @@ class PurchaseModel {
     String? address,
     String? bankSlipImage,
     List? deliveryTownshipInfo,
+    int? totalCost,
     DateTime? dateTime,
   }) =>
       PurchaseModel(
@@ -44,6 +47,7 @@ class PurchaseModel {
         address: address ?? this.address,
         deliveryTownshipInfo: deliveryTownshipInfo ?? this.deliveryTownshipInfo,
         bankSlipImage: bankSlipImage ?? this.bankSlipImage,
+        totalCost: totalCost ?? this.totalCost,
       );
 
   factory PurchaseModel.fromJson(Map<String, dynamic> json, String id) =>
@@ -56,12 +60,13 @@ class PurchaseModel {
         address: json['address'] as String,
         bankSlipImage: json['bankSlipImage'] as String?,
         deliveryTownshipInfo: json['deliveryTownshipInfo'] as List,
+        totalCost: json['totalCost'] as int?,
         dateTime: (json['dateTime'] as Timestamp).toDate(),
       );
 
   @override
   String toString() {
-    return "$id,$items,$name,$email,$phone,$address,$bankSlipImage,$deliveryTownshipInfo,$dateTime";
+    return "$id,$items,$name,$email,$phone,$address,$bankSlipImage,$deliveryTownshipInfo,$totalCost,$dateTime";
   }
 
   Map<String, dynamic> toJson() => {
@@ -72,6 +77,7 @@ class PurchaseModel {
         'address': address,
         'bankSlipImage': bankSlipImage,
         'deliveryTownshipInfo': deliveryTownshipInfo,
+        'totalCost': totalCost,
         'dateTime': dateTime ?? DateTime.now(),
       };
 }

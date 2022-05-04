@@ -118,42 +118,65 @@ class HomeController extends GetxController {
     bankSlipImage.value = image;
   }
 
-  void addToCart(ItemModel itemModel, String color, String size, int price,
-      String priceType) {
+  void addToCart(ItemModel itemModel, String color, String size) {
+    final isHotSales =
+        itemModel.category == "Hot Sales"; //This is Sensitive Variable,
     try {
-      final PurchaseItem _item = myCart.firstWhere(
-        (item) =>
-            item.id == itemModel.id &&
-            item.color == color &&
-            item.size == size &&
-            item.price == price &&
-            item.priceType == priceType,
-      );
+      //We try this item have already include inside cart.
+      final PurchaseItem _item = myCart.firstWhere((item) =>
+          item.id == itemModel.id && item.color == color && item.size == size);
       myCart.value = myCart.map((element) {
         if (_item.id == element.id) {
+          //If do so,we increase count + 1.change showcasePrice
+          //upon current count only this is not holeSale product and brand product.
           return PurchaseItem(
-            element.id,
-            element.itemName,
-            element.count + 1,
-            element.size,
-            element.color,
-            element.priceType,
-            element.isOwnBrand,
-            element.price,
+            id: element.id,
+            itemName: element.itemName,
+            count: element.count + 1,
+            size: element.size,
+            color: element.color,
+            priceType: element.priceType,
+            isOwnBrand: element.isOwnBrand,
+            isHotDeal: element.isHotDeal,
+            retailPrice: element.retailPrice,
+            wholesalePrice: element.wholesalePrice,
+            showcaseMap: ((element.count + 1 >= 10) &&
+                    !isHotSales &&
+                    !element.isOwnBrand)
+                ? {
+                    "price": element.wholesalePrice,
+                    "text": priceList[1],
+                  }
+                : {
+                    "price": element.showcaseMap["price"],
+                    "text": element.showcaseMap['text'],
+                  },
           );
         }
         return element;
       }).toList();
     } catch (e) {
+      //Try fail,so this is initial item
       myCart.add(PurchaseItem(
-        itemModel.id!,
-        itemModel.name,
-        1,
-        size,
-        color,
-        priceType,
-        itemModel.isOwnBrand,
-        price,
+        id: itemModel.id!,
+        itemName: itemModel.name,
+        count: 1,
+        size: size,
+        color: color,
+        priceType: "",
+        isOwnBrand: itemModel.isOwnBrand,
+        isHotDeal: isHotSales,
+        retailPrice: itemModel.price,
+        wholesalePrice: itemModel.discountprice,
+        showcaseMap: (!isHotSales && !itemModel.isOwnBrand)
+            ? {
+                "price": itemModel.price,
+                "text": priceList[0],
+              }
+            : {
+                "price": itemModel.discountprice,
+                "text": priceList[1],
+              }, //Because this is initial item
       ));
     }
   }
@@ -317,16 +340,21 @@ class HomeController extends GetxController {
     myCart.value = myCart.map((element) {
       if (element.id == p.id &&
           element.color == p.color &&
-          element.size == p.size) {
-        return PurchaseItem(
-          element.id,
-          element.itemName,
-          element.count + 1,
-          element.size,
-          element.color,
-          element.priceType,
-          element.isOwnBrand,
-          element.price,
+          element.size == p.size &&
+          element.isHotDeal == p.isHotDeal) {
+        return p.copyWith(
+          //we only need to change count and showCasePrice
+          count: element.count + 1,
+          showcaseMap:
+              ((element.count + 1 >= 10) && !p.isHotDeal && !element.isOwnBrand)
+                  ? {
+                      "price": element.wholesalePrice,
+                      "text": priceList[1],
+                    }
+                  : {
+                      "price": element.showcaseMap["price"],
+                      "text": element.showcaseMap['text'],
+                    },
         );
       }
       return element;
@@ -342,15 +370,20 @@ class HomeController extends GetxController {
           element.color == p.color &&
           element.size == p.size) {
         if (element.count > 1) {
-          return PurchaseItem(
-              element.id,
-              element.itemName,
-              element.count - 1,
-              element.size,
-              element.color,
-              element.priceType,
-              element.isOwnBrand,
-              element.price);
+          return p.copyWith(
+            count: element.count - 1,
+            showcaseMap: ((element.count - 1 < 10) &&
+                    !p.isHotDeal &&
+                    !element.isOwnBrand)
+                ? {
+                    "price": element.retailPrice,
+                    "text": priceList[0],
+                  }
+                : {
+                    "price": element.showcaseMap["price"],
+                    "text": element.showcaseMap['text'],
+                  },
+          );
         }
         needToRemove = true;
         return element;
@@ -366,20 +399,42 @@ class HomeController extends GetxController {
     updateSubTotal(true);
   }
 
+  var totalUsualPrice = 0.obs;
+  var totalHotPrice = 0.obs;
+  var totalUsualProductCount = 0.obs;
+  var totalHotProductCount = 0.obs;
   int subTotal = 0;
   void updateSubTotal(bool isUpdate) {
     if (subTotal != 0) {
       subTotal = 0;
     }
-    int price = 0;
+    //int price = 0;
+    int usualPrice = 0;
+    int hotSalePrice = 0;
+    int ownBrandPrice = 0;
+    int hotSaleCount = 0;
+    int usualSaleCount = 0;
     for (var i = 0; i < myCart.length; i++) {
-      //print(items.firstWhere((element) => element.id == myCart[i].id).price);
-      debugPrint("**********each price:$i: ${myCart[i].price}");
-      /* price += items.firstWhere((element) => element.id == myCart[i].id).price *
-          myCart[i].count;*/
-      price += myCart[i].price * myCart[i].count;
-    }
-    subTotal = price;
+      if (!myCart[i].isOwnBrand && myCart[i].isHotDeal) {
+        hotSalePrice +=
+            int.parse("${(myCart[i].showcaseMap["price"] * myCart[i].count)}");
+        hotSaleCount += myCart[i].count;
+      } else if (!myCart[i].isOwnBrand && !myCart[i].isHotDeal) {
+        usualPrice +=
+            int.parse("${myCart[i].showcaseMap["price"] * myCart[i].count}");
+        usualSaleCount += myCart[i].count;
+      } else {
+        ownBrandPrice +=
+            int.parse("${myCart[i].showcaseMap["price"] * myCart[i].count}");
+      }
+    } //When Loop is complete we calculate all criteria
+
+    subTotal = usualPrice + hotSalePrice + ownBrandPrice;
+    totalUsualPrice.value =
+        usualPrice; //We also need to change this to update UI.
+    totalHotPrice.value = hotSalePrice;
+    totalUsualProductCount.value = usualSaleCount;
+    totalHotProductCount.value = hotSaleCount;
     debugPrint("*************$subTotal");
     if (isUpdate) {
       update();
@@ -439,17 +494,17 @@ class HomeController extends GetxController {
   } //////////////////
 
   final RxBool isLoading = false.obs;
-
   Future<void> proceedToPay() async {
     if (isLoading.value) return;
     isLoading.value = true;
     Get.back();
     try {
       final list = getUserOrderData();
+      final total = subTotal + townShipNameAndFee["fee"] as int;
       final _purchase = PurchaseModel(
         items: myCart
             .map((cart) =>
-                "${cart.id},${cart.itemName},${cart.color},${cart.size},${cart.count},${cart.price}")
+                "${cart.id},${cart.itemName},${cart.color},${cart.size},${cart.count},${cart.showcaseMap["price"]}")
             .toList(),
         name: list[0],
         email: list[1],
@@ -460,9 +515,18 @@ class HomeController extends GetxController {
           townShipNameAndFee["townName"],
           townShipNameAndFee["fee"]
         ],
+        totalCost: total,
       );
+      /*final hivePurchase = HivePurchase(
+        id: Uuid().v1(),
+        items: _purchase.items,
+        totalPrice: total,
+        deliveryTownshipInfo: _purchase.deliveryTownshipInfo,
+        dateTime: DateTime.now(),
+      );*/
       await _database.writePurchaseData(_purchase).then((value) {
         Get.snackbar("လူကြီးမင်း Order တင်ခြင်း", 'အောင်မြင်ပါသည်');
+        //purchaseHiveBox.put(hivePurchase.id, hivePurchase);
       }); //submit success
       myCart.clear();
       navIndex.value = 0;

@@ -1,3 +1,4 @@
+import 'package:colours/colours.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -57,8 +58,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             data: ThemeData(
                 primarySwatch: Colors.orange,
                 colorScheme: ColorScheme.light(
-                  primary: Colors.orange,
-                  secondary: Colors.orange,
+                  primary: Colours.gold,
+                  secondary: Colours.gold,
                 )),
             child: Stepper(
               currentStep: controller.checkOutStep.value,
@@ -88,7 +89,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         child: Center(
                           child: Text(
                             "Order အတည်ပြုမည်",
-                            style: TextStyle(wordSpacing: 2, fontSize: 16),
+                            style: TextStyle(
+                                color: Colors.black,
+                                wordSpacing: 2, fontSize: 16),
                           ),
                         ),
                       )
@@ -102,13 +105,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   state: controller.checkOutStep.value > 0
                       ? StepState.complete
                       : StepState.indexed,
-                  title: Text("Delivery details"),
+                  title: Text("Order Information"),
                   content: FormWidget(),
                 ),
                 Step(
                   isActive: controller.checkOutStep >= 1,
                   state: StepState.indexed,
-                  title: Text("Order Confirmation"),
+                  title: Text("Order အတည်ပြု"),
                   content: controller.paymentOptions == PaymentOptions.PrePay
                       ? prePayWidget(context)
                       : SizedBox(height: 0, width: 0),
@@ -336,7 +339,10 @@ Widget prePayWidget(BuildContext context) {
                 ),
               )),
               onPressed: () => getBankSlip(controller),
-              child: Text("Choose KBZ / YOMA / AYA / CB  Screenshot"),
+              child: Text("Screenshot တင်ရန် နှိပ်ပါ",
+              style: TextStyle(
+                color: Colors.black
+              ),),
             ),
             //Image String
             Obx(
@@ -515,7 +521,10 @@ class _FormWidgetState extends State<FormWidget> {
                     Get.snackbar("လူကြီးမင်း Order တင်ခြင်း", 'အောင်မြင်ပါသည်');*/
                   }
                 },
-                child: Text('Save'),
+                child: Text('သိမ်းထားမည်',
+                style: TextStyle(
+                  color: Colors.black
+                ),),
               ),
             )
           ],

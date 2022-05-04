@@ -31,7 +31,7 @@ class _OrderRevenueScreenState extends State<OrderRevenueScreen> {
         elevation: 0,
         backgroundColor: Colors.white,
         title: Text(
-          "HALO Fashion Star",
+          "HALO Fashion Star Order & Revenue",
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,
@@ -57,7 +57,7 @@ class _OrderRevenueScreenState extends State<OrderRevenueScreen> {
                         padding: EdgeInsets.all(8),
                         decoration: BoxDecoration(
                           color: homeIndicatorColor,
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -87,7 +87,7 @@ class _OrderRevenueScreenState extends State<OrderRevenueScreen> {
                           padding: EdgeInsets.all(8),
                           decoration: BoxDecoration(
                             color: Colors.blue,
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,

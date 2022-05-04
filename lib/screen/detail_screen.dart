@@ -1,9 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:colours/colours.dart';
 import 'package:custom_full_image_screen/custom_full_image_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/route_manager.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kozarni_ecome/controller/home_controller.dart';
 import 'package:kozarni_ecome/data/constant.dart';
@@ -65,7 +64,7 @@ class DetailScreen extends StatelessWidget {
                     ),
                   ],
                   options: CarouselOptions(
-                    height: 400,
+                    height: 300,
                     viewportFraction: 0.8,
                     initialPage: 0,
                     enableInfiniteScroll: true,
@@ -109,11 +108,11 @@ class DetailScreen extends StatelessWidget {
                       Row(
                         children: List.generate(
                           5,
-                          (index) => Icon(
+                              (index) => Icon(
                             Icons.star,
                             size: 20,
                             color: index <= controller.selectedItem.value.star
-                                ? homeIndicatorColor
+                                ? Colours.gold
                                 : Colors.grey,
                           ),
                         ),
@@ -121,10 +120,10 @@ class DetailScreen extends StatelessWidget {
                       //Favourite Icon
                       ValueListenableBuilder(
                         valueListenable:
-                            Hive.box<HiveItem>(boxName).listenable(),
+                        Hive.box<HiveItem>(boxName).listenable(),
                         builder: (context, Box<HiveItem> box, widget) {
                           final currentObj =
-                              box.get(controller.selectedItem.value.id);
+                          box.get(controller.selectedItem.value.id);
 
                           if (!(currentObj == null)) {
                             return IconButton(
@@ -159,7 +158,7 @@ class DetailScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "တစ်ထည်ဈေး (Retail) :",
+                      "၁ ထည် ပုံမှန် ဈေးနှုန်း    ",
                       style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -280,17 +279,16 @@ class DetailScreen extends StatelessWidget {
                         SizedBox(
                           height: 29,
                           child: TextButton(
-                              onPressed: () => launch("tel://09777703338"),
-                              child: Text(
-                                "09 7777 0 333 8",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
+                            onPressed: () => launch("tel://09975557331"),
+                            child: Text(
+                              "09 975 557 331",
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
                               ),
-
                             ),
+                          ),
                         ),
                       ],
                     ),
@@ -319,13 +317,14 @@ class DetailScreen extends StatelessWidget {
                                 imageDetailsFit: BoxFit.fitWidth,
                                 withHeroAnimation: true,
                                 placeholder: Container(),
-                                placeholderDetails: Center(child: CircularProgressIndicator()),),
+                                placeholderDetails:
+                                Center(child: CircularProgressIndicator()),
+                              ),
                             ),
                           ),
                         ],
                       ),
                     ),
-
                     SizedBox(
                       width: 30,
                     ),
@@ -348,13 +347,14 @@ class DetailScreen extends StatelessWidget {
                                 imageDetailsFit: BoxFit.fitWidth,
                                 withHeroAnimation: true,
                                 placeholder: Container(),
-                                placeholderDetails: Center(child: CircularProgressIndicator()),),
+                                placeholderDetails:
+                                Center(child: CircularProgressIndicator()),
+                              ),
                             ),
                           ),
                         ],
                       ),
                     ),
-
                   ],
                 ),
                 Column(
@@ -364,78 +364,23 @@ class DetailScreen extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          "🏠 Shop - 1  ( Thanlyin )",
+                          "🏠 Shop  Address",
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
                           ),
                         ),
-
                         TextButton(
-                          onPressed: () => launch("tel://09777702228"),
+                          onPressed: () => launch("tel://09975557331"),
                           child: Text(
-                            "📞     09 7777 0 222 8",
+                            "    📞     09 975 557 331",
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
                             ),
                           ),
-
-                        ),
-                      ],
-                    ),
-
-
-
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      'အမှတ် 116 ၊ သတိပဌာန်လမ်း ၊ မြို့မတောင်ရပ်ကွက် ၊ သန်လျင်မြို့နယ် ၊ ရန်ကုန်မြို့။',
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-
-
-
-
-                SizedBox(
-                  height: 20,
-                ),
-
-
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          "🏠 Shop - 2  ( Dawbon )",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-
-                        TextButton(
-                          onPressed: () => launch("tel://09777703338"),
-                          child: Text(
-                            "📞     09 7777 0 333 8",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                          ),
-
                         ),
                       ],
                     ),
@@ -443,27 +388,26 @@ class DetailScreen extends StatelessWidget {
                       height: 5,
                     ),
                     Text(
-                      'အမှတ် 192 ၊ ယမုံနာလမ်း ၊ ဇေယျာသီရိရပ်ကွက်, ဒေါပုံမြို့နယ် ။ (မာန်ပြေကားဂိတ်နားမရောက်ခင်...ဇေယျာသီရိ ၈ လမ်းထိပ်)',
+                      '172A , 3rd Floor Between 103 St & Bo Min Yaung St, Mingala Taung Nyunt Township Yangon, Myanmar, 11222',
                       style: TextStyle(
                         fontSize: 15,
                         color: Colors.black,
                       ),
-                    )
+                    ),
                   ],
                 ),
-
                 SizedBox(
+
                   height: 20,
                 ),
-
                 Text(
-                  '🌼 𝐂𝐇𝐎𝐎𝐒𝐄 𝐓𝐇𝐄 𝐁𝐄𝐒𝐓 𝐎𝐔𝐓𝐅𝐈𝐓𝐒, 𝐂𝐇𝐎𝐎𝐒𝐄 𝐔𝐒! 🌼',
+                  '⭐ Prefect The Imperfection, HALO Is Everywhere...⭐',
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.black,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-
                 SizedBox(
                   height: 20,
                 ),
@@ -497,13 +441,15 @@ class DetailScreen extends StatelessWidget {
                   controller.selectedItem.value.discountprice,
                 ],
                 priceString: [
-                  "၁ ထည် လက်လီ ဈေးနှုန်း",
+                  "၁ ထည် ပုံမှန် ဈေးနှုန်း",
                   controller.selectedItem.value.brand,
                 ],
               ),
             );
           },
-          child: Text("၀ယ်ယူရန်"),
+          child: Text("၀ယ်ယူရန်", style: TextStyle(
+              color: Colors.black
+          ),),
         ),
       ),
     );
@@ -545,12 +491,12 @@ class _AddToCartState extends State<AddToCart> {
           items: controller.selectedItem.value.color
               .split(',')
               .map((e) => DropdownMenuItem(
-                    value: e,
-                    child: Text(
-                      e,
-                      style: TextStyle(fontSize: 12),
-                    ),
-                  ))
+            value: e,
+            child: Text(
+              e,
+              style: TextStyle(fontSize: 12),
+            ),
+          ))
               .toList(),
         ),
         SizedBox(
@@ -568,61 +514,64 @@ class _AddToCartState extends State<AddToCart> {
           items: controller.selectedItem.value.size
               .split(',')
               .map((e) => DropdownMenuItem(
-                    value: e,
-                    child: Text(
-                      e,
-                      style: TextStyle(fontSize: 12),
-                    ),
-                  ))
+            value: e,
+            child: Text(
+              e,
+              style: TextStyle(fontSize: 12),
+            ),
+          ))
               .toList(),
         ),
         //Price Wholesale (or) Retail
         SizedBox(
           height: 10,
         ),
-        DropdownButtonFormField(
-          value: priceType,
-          hint: Text(
-            "Price",
-            style: TextStyle(fontSize: 12),
-          ),
-          onChanged: (String? e) {
-            priceType = e;
-          },
-          items: List.generate(
-            widget.priceString.length,
-            (index) => DropdownMenuItem(
-              value: widget.priceString[index],
-              child: Text(
-                widget.priceString[index],
-                style: TextStyle(fontSize: 12),
-              ),
-            ),
-          ),
-        ),
-        SizedBox(
-          height: 10,
-        ),
+        // DropdownButtonFormField(
+        //   value: priceType,
+        //   hint: Text(
+        //     "Price",
+        //     style: TextStyle(fontSize: 12),
+        //   ),
+        //   onChanged: (String? e) {
+        //     priceType = e;
+        //   },
+        //   items: List.generate(
+        //     widget.priceString.length,
+        //         (index) => DropdownMenuItem(
+        //       value: widget.priceString[index],
+        //       child: Text(
+        //         widget.priceString[index],
+        //         style: TextStyle(fontSize: 12),
+        //       ),
+        //     ),
+        //   ),
+        // ),
+        // SizedBox(
+        //   height: 10,
+        // ),
         Padding(
           padding: const EdgeInsets.only(top: 30),
           child: ElevatedButton(
             style: buttonStyle,
             onPressed: () {
               if (colorValue != null &&
-                  sizeValue != null &&
-                  priceType != null) {
+                  sizeValue != null) {
                 int price = (priceType == widget.priceString[0])
                     ? widget.priceList[0]
                     : widget.priceList[1];
-                controller.addToCart(controller.selectedItem.value, colorValue!,
-                    sizeValue!, price, priceType!);
+                controller.addToCart(
+                    controller.selectedItem.value, colorValue!, sizeValue!);
                 Get.to(HomeScreen());
               }
             },
-            child: Text("၀ယ်ယူရန်"),
+            child: Text("၀ယ်ယူရန်",
+              style: TextStyle(
+                  color: Colors.black
+              ),),
           ),
         ),
       ],
     );
   }
 }
+

@@ -1,3 +1,4 @@
+import 'package:colours/colours.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kozarni_ecome/controller/home_controller.dart';
@@ -39,11 +40,11 @@ class HomeCategory extends StatelessWidget {
                       style: ButtonStyle(
                         backgroundColor: controller.category.value ==
                                 controller.categoryList()[i]
-                            ? MaterialStateProperty.all(homeIndicatorColor)
+                            ? MaterialStateProperty.all(Colours.gold)
                             : MaterialStateProperty.all(Colors.white),
                         foregroundColor: controller.category.value ==
                                 controller.categoryList()[i]
-                            ? MaterialStateProperty.all(Colors.white)
+                            ? MaterialStateProperty.all(Colors.black)
                             : MaterialStateProperty.all(Colors.black),
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(

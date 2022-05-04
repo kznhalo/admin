@@ -19,7 +19,7 @@ class PurchaseScreen extends StatelessWidget {
         backgroundColor: scaffoldBackground,
         appBar: AppBar(
           title: Text(
-            "𝐂𝐢𝐧𝐝𝐲 Export & Clothing Brand Fashion",
+            "𝑯𝑨𝑳𝑶 𝑭𝒂𝒔𝒉𝒊𝒐𝒏 𝑺𝒕𝒂𝒓",
             style: TextStyle(color: Colors.black, fontSize: 14),
           ),
           elevation: 5,

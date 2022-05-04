@@ -32,7 +32,7 @@ class BrandCategory extends StatelessWidget {
                       style: ButtonStyle(
                         backgroundColor: controller.brandCategory.value ==
                                 controller.brandCategoryList()[i]
-                            ? MaterialStateProperty.all(homeIndicatorColor)
+                            ? MaterialStateProperty.all(Colors.indigo)
                             : MaterialStateProperty.all(Colors.white),
                         foregroundColor: controller.brandCategory.value ==
                                 controller.brandCategoryList()[i]

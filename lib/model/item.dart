@@ -113,8 +113,47 @@ class PurchaseItem {
   final String color;
   final bool isOwnBrand;
   final String priceType;
-  final int price;
+  final bool isHotDeal;
+  final int retailPrice;
+  final int wholesalePrice;
+  final Map<String, dynamic> showcaseMap;
 
-  PurchaseItem(this.id, this.itemName, this.count, this.size, this.color,
-      this.priceType, this.isOwnBrand, this.price);
+  PurchaseItem(
+      {required this.id,
+      required this.itemName,
+      required this.count,
+      required this.size,
+      required this.color,
+      required this.priceType,
+      required this.isOwnBrand,
+      required this.isHotDeal,
+      required this.retailPrice,
+      required this.wholesalePrice,
+      required this.showcaseMap});
+  PurchaseItem copyWith({
+    String? id,
+    String? itemName,
+    int? count,
+    String? size,
+    String? color,
+    String? priceType,
+    bool? isOwnBrand,
+    bool? isHotDeal,
+    int? retailPrice,
+    int? wholesalePrice,
+    Map<String, dynamic>? showcaseMap,
+  }) =>
+      PurchaseItem(
+        id: id ?? this.id,
+        itemName: itemName ?? this.itemName,
+        count: count ?? this.count,
+        size: size ?? this.size,
+        color: color ?? this.color,
+        priceType: priceType ?? this.priceType,
+        isOwnBrand: isOwnBrand ?? this.isOwnBrand,
+        isHotDeal: isHotDeal ?? this.isHotDeal,
+        retailPrice: retailPrice ?? this.retailPrice,
+        wholesalePrice: wholesalePrice ?? this.wholesalePrice,
+        showcaseMap: showcaseMap ?? this.showcaseMap,
+      );
 }

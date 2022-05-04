@@ -30,7 +30,7 @@ class _ManageItemState extends State<ManageItem> {
       backgroundColor: scaffoldBackground,
       appBar: AppBar(
         title: Text(
-          "𝐂𝐢𝐧𝐝𝐲 Export & Fashion Clothing Brand",
+          "𝑯𝑨𝑳𝑶 𝑭𝒂𝒔𝒉𝒊𝒐𝒏 𝑺𝒕𝒂𝒓",
           style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,

@@ -1,3 +1,4 @@
+import 'package:colours/colours.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -40,13 +41,13 @@ class BottomNav extends StatelessWidget {
                       controller.changeNav(0);
                     },
                     icon: FaIcon(
-                      FontAwesomeIcons.truck,
+                      FontAwesomeIcons.home,
                       color: controller.navIndex.value == 0
-                          ? homeIndicatorColor
+                          ? Colours.gold
                           : null,
                     ),
                   ),
-                  Text("Export"),
+                  Text("Home", style: TextStyle(fontSize: 11),),
                 ],
               ),
             ),
@@ -58,13 +59,13 @@ class BottomNav extends StatelessWidget {
                       controller.changeNav(1);
                     },
                     icon: FaIcon(
-                      FontAwesomeIcons.shirtsinbulk,
+                      FontAwesomeIcons.handshake,
                       color: controller.navIndex.value == 1
-                          ? homeIndicatorColor
+                          ? Colours.gold
                           : null,
                     ),
                   ),
-                  Text("Brand"),
+                  Text("Partner", style: TextStyle(fontSize: 11),),
                 ],
               ),
             ),
@@ -76,12 +77,32 @@ class BottomNav extends StatelessWidget {
                     onPressed: () {
                       controller.changeNav(2);
                     },
+                    icon: Image.asset("assets/hotsale.png",
+                      color: controller.navIndex.value == 2
+                          ? null
+                          : Colors.black,
+                    ),
+                  ),
+                  Text("Hot Sales", style: TextStyle(fontSize: 11),),
+                ],
+              ),
+
+            ),
+
+
+            Expanded(
+              child: Column(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      controller.changeNav(3);
+                    },
                     icon: Stack(
                       children: [
                         FaIcon(
                           FontAwesomeIcons.shoppingCart,
-                          color: controller.navIndex.value == 2
-                              ? homeIndicatorColor
+                          color: controller.navIndex.value == 3
+                              ? Colours.gold
                               : null,
                         ),
                         CircleAvatar(
@@ -90,12 +111,12 @@ class BottomNav extends StatelessWidget {
                             maxRadius: 10,
                             child: Text(
                               controller.myCart.length.toString(),
-                              style: TextStyle(color: Colors.white, fontSize: 14),
+                              style: TextStyle(color: Colors.white, fontSize: 12),
                             )),
                       ],
                     ),
                   ),
-                  Text("Cart"),
+                  Text("Cart", style: TextStyle(fontSize: 11),),
                 ],
               ),
             ),
@@ -104,16 +125,16 @@ class BottomNav extends StatelessWidget {
                 children: [
                   IconButton(
                     onPressed: () {
-                      controller.changeNav(3);
+                      controller.changeNav(4);
                     },
                   icon: Icon(
                       FontAwesomeIcons.solidHeart,
-                      color: controller.navIndex.value == 3
-                          ? homeIndicatorColor
+                      color: controller.navIndex.value == 4
+                          ? Colours.red
                           : null,
                     ),
                   ),
-                  Text("Favourite"),
+                  Text("Favourite", style: TextStyle(fontSize: 11),),
                 ],
               ),
 
@@ -123,16 +144,16 @@ class BottomNav extends StatelessWidget {
                 children: [
                   IconButton(
                     onPressed: () {
-                      controller.changeNav(4);
+                      controller.changeNav(5);
                     },
                     icon: FaIcon(
                       FontAwesomeIcons.solidUserCircle,
-                      color: controller.navIndex.value == 4
-                          ? homeIndicatorColor
+                      color: controller.navIndex.value == 5
+                          ? Colours.gold
                           : null,
                     ),
                   ),
-                  Text("Account"),
+                  Text("Account", style: TextStyle(fontSize: 11),),
                 ],
               ),
             ),

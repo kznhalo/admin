@@ -1,3 +1,4 @@
+import 'package:colours/colours.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kozarni_ecome/controller/home_controller.dart';
@@ -15,9 +16,17 @@ class ProfileView extends StatelessWidget {
           ? _LoginUser()
           : ListView(
               children: [
-                Image.asset(
-                  "assets/shopping.jpeg",
-                  height: 200,
+                Padding(
+                  padding: const EdgeInsets.only(top: 100, bottom: 20),
+                  child: Center(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset(
+                        "assets/shopping.jpeg",
+                        height: 150,
+                      ),
+                    ),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
@@ -34,18 +43,20 @@ class ProfileView extends StatelessWidget {
                     ),
                   ),
                 ),
+                SizedBox(height: 10,),
                 Container(
                   width: double.infinity,
                   height: 50,
-                  margin: const EdgeInsets.only(top: 20, right: 20, left: 20),
+                  margin: const EdgeInsets.only(top: 20, right: 120, left: 120),
                   child: ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor:
-                          MaterialStateProperty.all(homeIndicatorColor),
+                          MaterialStateProperty.all(Colours.gold),
                     ),
                     onPressed: controller.login,
                     child: Text(
-                        controller.phoneState.value ? 'Verify' : 'Send Code'),
+                        controller.phoneState.value ? 'Verify' : 'Send Code', style:
+                      TextStyle(color: Colors.black),),
                   ),
                 )
               ],
@@ -79,10 +90,13 @@ class _LoginUser extends StatelessWidget {
                       top: 20,
                       bottom: 20,
                     ),
-                    child: Image.asset(
-                      "assets/shopping.jpeg",
-                      width: 100,
-                      height: 100,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset(
+                        "assets/shopping.jpeg",
+                        width: 100,
+                        height: 100,
+                      ),
                     ),
                   ),
                   //   ),
@@ -136,11 +150,16 @@ class _AdminPanel extends StatelessWidget {
       children: [
         Container(
           margin: EdgeInsets.only(top: 40, bottom: 20, left: 20, right: 20),
-          child: Text(
-            "Admin Feature",
-            style: TextStyle(
-              fontSize: 23,
-              fontWeight: FontWeight.bold,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: Text(
+              "💁 Admin Features",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                wordSpacing: 1,
+                letterSpacing: 1,
+              ),
             ),
           ),
         ),
@@ -162,7 +181,7 @@ class _AdminPanel extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Upload Item"),
+                    Text("Upload Item  📦"),
                     Icon(Icons.upload),
                   ],
                 ),
@@ -186,7 +205,7 @@ class _AdminPanel extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Manage Item"),
+                    Text("Manage Item  ✅"),
                     Icon(Icons.edit),
                   ],
                 ),
@@ -212,7 +231,7 @@ class _AdminPanel extends StatelessWidget {
                   children: [
                     Text("My Orders  🎁"),
                     CircleAvatar(
-                        backgroundColor: Colors.orange,
+                        backgroundColor: Colours.gold,
                         minRadius: 20,
                         maxRadius: 20,
                         child: Text(
@@ -242,8 +261,8 @@ class _AdminPanel extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("My Money  💸💸"),
-                    Icon(Icons.apartment),
+                    Text("Revenue (Income)  💸"),
+                    Icon(Icons.attach_money),
                   ],
                 ),
               ),
@@ -268,8 +287,8 @@ class _AdminPanel extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Manage Partner Users"),
-                    Icon(Icons.edit),
+                    Text("Add HALO Partners 🤝"),
+                    Icon(Icons.group_add),
                   ],
                 ),
               ),

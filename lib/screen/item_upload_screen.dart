@@ -1,3 +1,4 @@
+import 'package:colours/colours.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -46,7 +47,7 @@ class _UploadItemState extends State<UploadItem> {
       backgroundColor: scaffoldBackground,
       appBar: AppBar(
         title: Text(
-          "𝐂𝐢𝐧𝐝𝐲 Export & Fashion Clothing Brand",
+          "𝑯𝑨𝑳𝑶 𝑭𝒂𝒔𝒉𝒊𝒐𝒏 𝑺𝒕𝒂𝒓",
           style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -77,10 +78,10 @@ class _UploadItemState extends State<UploadItem> {
                   children: [
                     //Export Brand
                     ChoiceChip(
-                      selectedColor: Colors.black,
+                      selectedColor: Colours.gold,
                       label: Text(
-                        "Export Brand",
-                        style: TextStyle(color: Colors.white),
+                        "All Users",
+                        style: TextStyle(color: Colors.black),
                       ),
                       selected: con.isOwnBrand == false,
                       onSelected: (selected) =>
@@ -90,9 +91,9 @@ class _UploadItemState extends State<UploadItem> {
                     const SizedBox(width: 10),
                     //Own Brand
                     ChoiceChip(
-                      selectedColor: Colors.black,
+                      selectedColor: Colors.indigo,
                       label: Text(
-                        "Own Brand",
+                        "Partner Only",
                         style: TextStyle(color: Colors.white),
                       ),
                       selected: con.isOwnBrand == true,
@@ -218,7 +219,7 @@ class _UploadItemState extends State<UploadItem> {
                 controller: controller.brandController,
                 validator: controller.validator,
                 decoration: InputDecoration(
-                  hintText: '......ထည် ဈေးနှုန်း (Wholesale) ရေးပေးပါ',
+                  hintText: '_____ထည် ဈေးနှုန်း / လျော့ဈေး (Promotion)',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -234,7 +235,7 @@ class _UploadItemState extends State<UploadItem> {
                 controller: controller.deliverytimeController,
                 validator: controller.validator,
                 decoration: InputDecoration(
-                  hintText: 'လက်ကား ပုံမှန် ဈေးနှုန်း',
+                  hintText: 'WholeSale/Hot Sales ပုံမှန် ဈေးနှုန်း',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -251,7 +252,7 @@ class _UploadItemState extends State<UploadItem> {
                 validator: controller.validator,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                  hintText: 'လက်ကားအတွက် လျှော့ထားသော ဈေးနှုန်း',
+                  hintText: 'လျှော့ထားသော ဈေးနှုန်း',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -330,8 +331,9 @@ class _UploadItemState extends State<UploadItem> {
                           color: scaffoldBackground,
                         )
                       : Text(homecontroller.editItem.value.id != null
-                          ? "Edit"
-                          : "upload"),
+                          ? "Edit လုပ်မယ်"
+                          : "Product တင်မည်",
+                  style: TextStyle(color: Colors.black,),),
                 ),
               ),
             ),

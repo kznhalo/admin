@@ -21,7 +21,7 @@ class SearchScreen extends StatelessWidget {
         backgroundColor: appBarColor,
         elevation: 0,
         title: Text(
-          "𝐂𝐢𝐧𝐝𝐲 Export & Clothing Brand Fashion",
+          "",
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,
@@ -55,7 +55,7 @@ class SearchScreen extends StatelessWidget {
           //   ),
           // )
           Container(
-            width: MediaQuery.of(context).size.width * 0.6,
+            width: MediaQuery.of(context).size.width * 0.75,
             height: 50,
             child: TextField(
               autofocus: true,

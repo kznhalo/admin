@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:kozarni_ecome/screen/home_screen.dart';
+import 'package:colours/colours.dart';
 
 class OnBoardingPage extends StatelessWidget {
   @override
@@ -8,46 +9,125 @@ class OnBoardingPage extends StatelessWidget {
     child: IntroductionScreen(
       pages: [
         PageViewModel(
-          title: "HALO FASHION STAR",
-          body: ''' 💓 Style ကျကျ ကိုရီးယားမင်းသားလို ခေတ်မှီအောင်ဘဲ ဝတ်မလား 🤵‍♂️
-💗 မြန်မာဆန်ဆန်နဲ့  ခန့်ချောကြီး style ဘဲ ဝတ်မလား။ 👨‍⚕️
-🥳 “HALO ကိုသာ သတိရလိုက်ပါ ”''',
-          image: buildImage('assets/shopping.jpeg'),
+          title: "⭐ HALO Fashion Star ⭐",
+          bodyWidget: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('''
+            🔸 100% Brand New
+
+            🔸 Export Garment Factory Outlet
+
+            🔸 Trendy Export Quality Branded Clothing
+
+            🔸 Myanmar Famous Brand
+
+            🔸 Fair Price
+
+            🔸 Budget Clothes
+
+            🔸 Local Made
+
+            🔸 Deliver the whole Myanmar
+
+            🔸 Safe & Secure''',
+                style: TextStyle(fontSize: 16),),
+            ],
+          ),
+
+          image: buildImage('assets/1.jpeg'),
           decoration: getPageDecoration(),
         ),
 
         PageViewModel(
-          title: "HALO FASHION STAR",
-          body: ''' 
-          “ Prefect The Imperfection,
-                     HALO Is Everywhere…..”''',
-          image: buildImage('assets/1.png'),
+          title: '''⭐ HALO Fashion Star ⭐ မှ 
+          နွေးထွေးစွာ ကြိုဆိုပါတယ် 🌹''',
+          bodyWidget: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('''
+          အရည်အသွေးမြင့် 
+          
+          အဝတ်အထည် အသစ်တွေကို 
+          
+          စျေးနှုန်းချိုသာစွာနဲ့ ဖုန်းလေးသုံးရင်း 
+          
+          မြန်မာပြည်အနှံ့မှ ဝယ်ယူနိုင်ပါပြီ 🍀
+          
+          Cash on Delivery or Online Payment 
+          
+          ( အိမ်ရောက်ငွေချေစနစ် 
+          
+          သို့မဟုတ် 
+          
+          ငွေကြိုလွှဲစနစ် ) ☑
+          
+          KBZ Mobile Banking 
+          
+          AYA Mobile Banking
+          
+          CB Mobile Banking
+          
+          YOMA Mobile Banking
+          
+          Kpay
+          
+          CB Pay
+          
+          AYA Pay
+          
+          Wave Pay 
+         
+          💳 ကြိုက်တဲ့ Online Payment နဲ့ ရှင်း 
+          
+          လုံးဝအပိုထပ်ပေးစရာမလိုတဲ့  
+          
+          (0%) ဝန်ဆောင်မှု 🍀''',
+                style: TextStyle(fontSize: 16),),
+            ],
+          ),
+
+          image: buildImage('assets/2.jpeg'),
           decoration: getPageDecoration(),
         ),
         PageViewModel(
-          title: 'EVERYTIME YOU WILL NEED MY HALO',
-          body: '''
-          🌿  ခရီးထွက်ကြတဲ့အခါ...
-          🌿  Shopping ထွကိကြတဲ့အခါ...
-          🌿  မုန့်ထွက်စားကြတဲ့အခါ...
-          🌿 လျှောက်လည်တဲ့အခါတိုင်း 
-          ❝   HALO ကို သတိရလိုက်ပါနော်  ❞ ''',
-          image: buildImage('assets/2.png'),
+          title: "⭐ HALO Fashion Star ⭐",
+          bodyWidget: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('''
+              အကို အမ ညီလေး ညီမလေး 
+              
+              ဦးဦး ဒေါ်ဒေါ် တို့အတွက်
+              
+              ခေတ်နဲ့ အညီ 
+              
+              နောက်ဆုံးပေါ် မြန်မာမှု 
+              
+              အထည်ဒီဇိုင်းတွေဖြစ်တဲ့ 
+              
+              ပုဆိုး၊ လုံချည် (ထမိန်)၊ 
+              
+              အင်းကျီ၊ ဖိနပ်နဲ့ 
+              
+              လိုအပ်တာတွေကို 
+              
+              လက်လီ လက္ကား 
+              
+              HALO မှာ မှာယူနိုင်ပါပြီနော်…''',
+                style: TextStyle(fontSize: 16),),
+            ],
+          ),
+          image: buildImage('assets/4.jpeg'),
           decoration: getPageDecoration(),
         ),
         PageViewModel(
-          title: "HALO FASHION STAR",
-          body: '''
-          🌧  မိုးလေးကလဲရွာ....
-          💨  လေလေးကလဲတိုက်....
-          🤔  ဘာဝတ်ပြီး အပြင်ထွက်ရမလဲနော် ❓''',
-          image: buildImage('assets/4.png'),
-          decoration: getPageDecoration(),
-        ),
-        PageViewModel(
-          title: 'HAPPY AND ONLY MY HALO',
-          body: ''' ❝  အမြဲတမ်း လွတ်လပ်ပေါ့ပါးနေစေဖို့
-              HALO ဝတ်ကြစို့  ❞ ''',
+          title: '⭐ HALO Fashion Star ⭐',
+          body: ''' Fashion အတွက်ဆို 
+          
+          HALO Fashion Star ကိုသာ 
+          
+          သတိရလိုက်ပါ! 🌹 ''',
           footer: Padding(
             padding: const EdgeInsets.only(top: 10),
             child: ButtonWidget(
@@ -55,16 +135,16 @@ class OnBoardingPage extends StatelessWidget {
               onClicked: () => goToHome(context),
             ),
           ),
-          image: buildImage('assets/3.png'),
+          image: buildImage('assets/3.jpeg'),
           decoration: getPageDecoration(),
         ),
       ],
       done: Text("", style: TextStyle(fontWeight: FontWeight.w600)),
       onDone: () => goToHome(context),
       showSkipButton: true,
-      skip: Text('SKIP', style: TextStyle(fontSize: 16, color: Colors.orange),),
+      skip: Text('SKIP', style: TextStyle(fontSize: 16, color: Colors.indigo),),
       onSkip: () => goToHome(context),
-      next: Icon(Icons.forward_outlined, size: 30, color: Colors.orange),
+      next: Icon(Icons.forward_outlined, size: 30, color: Colors.indigo),
       dotsDecorator: getDotDecoration(),
       onChange: (index) => print('Page $index selected'),
       globalBackgroundColor: Colors.white,
@@ -83,11 +163,12 @@ class OnBoardingPage extends StatelessWidget {
   );
 
   Widget buildImage(String path) =>
-      Center(child: Image.asset(path, width: 350));
+      Image.asset(path, width: double.infinity,
+        height: double.infinity, fit: BoxFit.fitHeight, );
 
   DotsDecorator getDotDecoration() => DotsDecorator(
-    color: Colors.indigo,
-    activeColor: Colors.orange,
+    color: Colours.indigo,
+    activeColor: Colours.gold,
     size: Size(10, 10),
     activeSize: Size(22, 10),
     activeShape: RoundedRectangleBorder(
@@ -96,10 +177,12 @@ class OnBoardingPage extends StatelessWidget {
   );
 
   PageDecoration getPageDecoration() => PageDecoration(
-    titleTextStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-    titlePadding: EdgeInsets.only(top: 20),
-    descriptionPadding: EdgeInsets.only(top: 30).copyWith(bottom: 0),
-    imagePadding: EdgeInsets.only(top: 30),
+    bodyTextStyle: TextStyle(fontSize: 16,
+    ),
+    titleTextStyle: TextStyle(fontSize: 18,
+        fontWeight: FontWeight.bold, color: Colors.black),
+    titlePadding: EdgeInsets.only(top: 10),
+    descriptionPadding: EdgeInsets.only(top: 20).copyWith(bottom: 0),
     pageColor: Colors.white,
   );
 }
@@ -118,11 +201,11 @@ class ButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => RaisedButton(
     onPressed: onClicked,
-    color: Colors.orange,
+    color: Colours.gold,
     shape: StadiumBorder(),
     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
     child: Text(text,
-      style: TextStyle(color: Colors.white, fontSize: 16),
+      style: TextStyle(color: Colors.black, fontSize: 16),
     ),
   );
 }

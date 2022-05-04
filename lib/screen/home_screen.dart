@@ -19,7 +19,7 @@ import 'view/profile.dart';
 List<Widget> _template = [
   HomeView(),
   BrandView(),
-  //HotView(),
+  HotView(),
   CartView(),
   FavouriteView(),
   ProfileView(),
@@ -106,13 +106,14 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: appBarColor,
         elevation: 0,
         title: Text(
-          "HALO Fashion Star",
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: appBarTitleColor,
-          ),
-        ),
+        "𝑯𝑨𝑳𝑶 𝑭𝒂𝒔𝒉𝒊𝒐𝒏 𝑺𝒕𝒂𝒓",
+        style: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        wordSpacing: 2,
+        letterSpacing: 2,
+        color: appBarTitleColor,
+    ),),
         // centerTitle: true,
         actions: [
           // InkWell(
