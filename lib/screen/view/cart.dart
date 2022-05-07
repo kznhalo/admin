@@ -216,7 +216,6 @@ class CartView extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-
                           //DropDown TownShip List
                           Container(
                             width: 150,
@@ -226,12 +225,11 @@ class CartView extends StatelessWidget {
                               return InkWell(
                                 onTap: () {
                                   //Show Dialog
-                                  showDialog(
-                                      barrierColor: Colors.white.withOpacity(0),
-                                      context: context,
-                                      builder: (context) {
-                                        return divisionDialogWidget();
-                                      });
+                                  Get.dialog(
+                                    divisionDialogWidget(),
+                                    barrierDismissible: true,
+                                    barrierColor: Colors.black.withOpacity(0),
+                                      );
                                 },
                                 child: Row(children: [
                                   //Township Name
@@ -240,10 +238,7 @@ class CartView extends StatelessWidget {
                                       controller
                                               .townShipNameAndFee["townName"] ??
                                           "မြို့နယ်",
-                                      style: TextStyle(
-                                        fontSize: 12
-
-                                      ),
+                                      style: TextStyle(fontSize: 12),
                                     ),
                                   ),
                                   //DropDown Icon
@@ -348,10 +343,10 @@ class CartView extends StatelessWidget {
                 Get.snackbar('Error', "Cart is empty");
               }
             },
-            child: Text("Order တင်ရန် နှိပ်ပါ",
-            style: TextStyle(
-              color: Colours.black
-            ),),
+            child: Text(
+              "Order တင်ရန် နှိပ်ပါ",
+              style: TextStyle(color: Colours.black),
+            ),
           ),
         )
       ],
@@ -359,58 +354,63 @@ class CartView extends StatelessWidget {
   }
 
   Widget divisionDialogWidget() {
-    return Align(
-      alignment: Alignment.center,
-      child: GetBuilder<HomeController>(builder: (controller) {
-        return Container(
-          decoration: BoxDecoration(
-            border: Border(
-            ),
-          ),
-          width: double.infinity,
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: divisionList.length,
-            itemBuilder: (context, divisionIndex) {
-              return MouseRegion(
-                onHover: (event) {
-                  controller.changeMouseIndex(divisionIndex);
-                  showDialog(
-                    context: context,
-                    barrierColor: Colors.white.withOpacity(0),
-                    builder: (context) {
-                      return townShipDialog(
-                          division: divisionList[divisionIndex]);
+    return  Scaffold(
+      backgroundColor: Colors.black.withOpacity(0),
+      body: Align(
+          alignment: Alignment.center,
+          child: GetBuilder<HomeController>(builder: (controller) {
+            return Container(
+              height: 200,
+              decoration: BoxDecoration(
+                border: Border(),
+              ),
+              width: double.infinity,
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: divisionList.length,
+                itemBuilder: (context, divisionIndex) {
+                  return InkWell(
+                    onTap: () {
+                      debugPrint("**********MouseEnter: ..");
+                      controller.changeMouseIndex(divisionIndex);
+                      showDialog(
+                        context: context,
+                        barrierColor: Colors.white.withOpacity(0),
+                        builder: (context) {
+                          return townShipDialog(
+                              division: divisionList[divisionIndex]);
+                        },
+                      );
                     },
+                    /*onExit: (event) {
+                      // controller
+                      //   .changeMouseIndex(0);
+                      Navigator.of(context).pop();
+                    },*/
+                    child: AnimatedContainer(
+                      color: controller.mouseIndex == divisionIndex
+                          ? Colors.orange
+                          : Colors.white,
+                      duration: const Duration(milliseconds: 200),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            //Text
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10, right: 10),
+                              child: Text(divisionList[divisionIndex].name),
+                            ),
+                            SizedBox(width: 10),
+                            Icon(FontAwesomeIcons.angleUp),
+                          ]),
+                    ),
                   );
                 },
-                onExit: (event) {
-                  // controller
-                  //   .changeMouseIndex(0);
-                  Navigator.of(context).pop();
-                },
-                child: AnimatedContainer(
-                  color: controller.mouseIndex == divisionIndex
-                      ? Colors.orange
-                      : Colors.white,
-                  duration: const Duration(milliseconds: 200),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        //Text
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          child: Text(divisionList[divisionIndex].name),
-                        ),
-                        SizedBox(width: 10),
-                        Icon(FontAwesomeIcons.angleUp),
-                      ]),
-                ),
-              );
-            },
-          ),
-        );
-      }),
+              ),
+            );
+          }),
+      
+      ),
     );
   }
 
@@ -422,8 +422,7 @@ class CartView extends StatelessWidget {
         width: MediaQuery.of(Get.context!).size.width,
         height: MediaQuery.of(Get.context!).size.height,
         decoration: BoxDecoration(
-          border: Border(
-          ),
+          border: Border(),
           color: Colors.white,
         ),
         child: ListView(

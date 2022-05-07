@@ -75,30 +75,6 @@ class Database {
         debugPrint("*******Image Upload Error $e******");
       }
     }
-    ////////////////////////
-    /* if (!(model.bankSlipImage == null)) {
-      //if image is not empty or null,we need to store Image FILE
-      final file = File(model.bankSlipImage!);
-      try {
-        await _firebaseStorage
-            .ref()
-            .child("bankSlipImage/${Uuid().v4}")
-            .putFile(file)
-            .then((snapshot) async {
-          await snapshot.ref.getDownloadURL().then((image) {
-            debugPrint("***********get download image url**************");
-            model = model.copyWith(bankSlipImage: image);
-            _firebaseFirestore
-                .collection(purchaseCollection)
-                .doc()
-                .set(model.toJson());
-          });
-        });
-      } catch (e) {
-        debugPrint(
-            "**************PurchaseSubmitError and BankSlip $e************");
-      }
-    }*/
     else {
       try {
         _firebaseFirestore
@@ -123,4 +99,27 @@ class Database {
     required String path,
   }) =>
       _firebaseFirestore.collection(collectionPath).doc(path).delete();
+
+  //Update TotalOrder and TotalPrice in today Map
+  Future<void> makeCompleteOrNotPurchase(PurchaseModel purchase) async {
+    _firebaseFirestore.runTransaction((transaction) async {
+      //secure snapshot
+      debugPrint("*********PUrchaseID: ${purchase.id}");
+      final secureSnapshot = await transaction.get(
+          _firebaseFirestore.collection(purchaseCollection).doc(purchase.id));
+
+      try {
+        debugPrint("********DocumentRef: ${secureSnapshot.reference}");
+        transaction.set(
+            secureSnapshot.reference,
+            {
+              "complete": true,
+            },
+            SetOptions(merge: true));
+        debugPrint("*********Make complete ${purchase.id}");
+      } catch (e) {
+        debugPrint("*********Error make purchase complete $e**");
+      }
+    });
+  }
 }

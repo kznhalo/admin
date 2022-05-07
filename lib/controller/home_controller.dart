@@ -483,14 +483,14 @@ class HomeController extends GetxController {
     );
   }
 
-  final RxList<PurchaseModel> _purchcases = <PurchaseModel>[].obs; ////
+  final RxList<PurchaseModel> purchcases = <PurchaseModel>[].obs; ////
 
   List<PurchaseModel> purchcasesCashOn() {
-    return _purchcases.where((item) => item.bankSlipImage == null).toList();
+    return purchcases.where((item) => item.bankSlipImage == null).toList();
   }
 
   List<PurchaseModel> purchcasesPrePay() {
-    return _purchcases.where((item) => item.bankSlipImage != null).toList();
+    return purchcases.where((item) => item.bankSlipImage != null).toList();
   } //////////////////
 
   final RxBool isLoading = false.obs;
@@ -688,9 +688,9 @@ class HomeController extends GetxController {
             debugPrint("*****************AdminUser: true");
             _database.watchOrder(purchaseCollection).listen((event) {
               if (event.docs.isEmpty) {
-                _purchcases.clear();
+                purchcases.clear();
               } else {
-                _purchcases.value = event.docs
+                purchcases.value = event.docs
                     .map((e) => PurchaseModel.fromJson(e.data(), e.id))
                     .toList();
               }
@@ -840,5 +840,10 @@ class HomeController extends GetxController {
   //Get Order Revenue
   Future<OrderRevenue> getOrderRevenue() async {
     return await _database.readOrderRevenue();
+  }
+
+  Future<void> makeOrderComplete(PurchaseModel model) async {
+    debugPrint("******PModelID INSIDE CONTROLLER: ${model.id}");
+    await _database.makeCompleteOrNotPurchase(model);
   }
 }

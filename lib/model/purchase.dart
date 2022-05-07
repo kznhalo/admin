@@ -12,6 +12,7 @@ class PurchaseModel {
   final List deliveryTownshipInfo;
   final int? totalCost;
   final DateTime? dateTime;
+  final bool? complete;
 
   PurchaseModel({
     this.id,
@@ -24,6 +25,7 @@ class PurchaseModel {
     required this.bankSlipImage,
     required this.totalCost,
     this.dateTime,
+    this.complete = false,
   });
 
   //Object Clone
@@ -38,6 +40,7 @@ class PurchaseModel {
     List? deliveryTownshipInfo,
     int? totalCost,
     DateTime? dateTime,
+    bool? complete,
   }) =>
       PurchaseModel(
         items: items ?? this.items,
@@ -48,6 +51,8 @@ class PurchaseModel {
         deliveryTownshipInfo: deliveryTownshipInfo ?? this.deliveryTownshipInfo,
         bankSlipImage: bankSlipImage ?? this.bankSlipImage,
         totalCost: totalCost ?? this.totalCost,
+        dateTime: dateTime ?? this.dateTime,
+        complete: complete ?? this.complete,
       );
 
   factory PurchaseModel.fromJson(Map<String, dynamic> json, String id) =>
@@ -62,11 +67,12 @@ class PurchaseModel {
         deliveryTownshipInfo: json['deliveryTownshipInfo'] as List,
         totalCost: json['totalCost'] as int?,
         dateTime: (json['dateTime'] as Timestamp).toDate(),
+        complete: json['complete'] as bool?,
       );
 
   @override
   String toString() {
-    return "$id,$items,$name,$email,$phone,$address,$bankSlipImage,$deliveryTownshipInfo,$totalCost,$dateTime";
+    return "$id,$items,$name,$email,$phone,$address,$bankSlipImage,$deliveryTownshipInfo,$totalCost,$dateTime$complete";
   }
 
   Map<String, dynamic> toJson() => {
@@ -79,5 +85,6 @@ class PurchaseModel {
         'deliveryTownshipInfo': deliveryTownshipInfo,
         'totalCost': totalCost,
         'dateTime': dateTime ?? DateTime.now(),
+        'complete': complete ?? false,
       };
 }

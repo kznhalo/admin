@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <!--
     If you are serving your web app in a path other than the root, change the
@@ -14,7 +15,7 @@
     This is a placeholder for base href that will be replaced by the value of
     the `--base-href` argument provided to `flutter build`.
   -->
-  <base href="$FLUTTER_BASE_HREF">
+  <!-- <base href="$FLUTTER_BASE_HREF"> -->
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
@@ -29,29 +30,30 @@
   <title>Cindy</title>
   <link rel="manifest" href="manifest.json">
 </head>
+
 <body>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js"></script>
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
 
   <script>
-      var firebaseConfig = {
-        apiKey: "AIzaSyAWa_y4CcAzFynSFR4R9RQamewYyYgdzxo",
-        authDomain: "cindy-online-shop.firebaseapp.com",
-        databaseURL: "https://cindy-online-shop.firebaseio.com",
-        projectId: "cindy-online-shop",
-        storageBucket: "cindy-online-shop.appspot.com",
-        messagingSenderId: "101656228884",
-        appId: "1:101656228884:web:a162b3f0631640be002301"
-      };
+    var firebaseConfig = {
+      apiKey: "AIzaSyAWa_y4CcAzFynSFR4R9RQamewYyYgdzxo",
+      authDomain: "cindy-online-shop.firebaseapp.com",
+      databaseURL: "https://cindy-online-shop.firebaseio.com",
+      projectId: "cindy-online-shop",
+      storageBucket: "cindy-online-shop.appspot.com",
+      messagingSenderId: "101656228884",
+      appId: "1:101656228884:web:a162b3f0631640be002301"
+    };
 
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-    </script>
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
 
   <script>
     var serviceWorkerVersion = null;
@@ -118,4 +120,5 @@
     }
   </script>
 </body>
+
 </html>

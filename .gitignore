@@ -47,4 +47,4 @@ lib/domain/json/course/*.g.dart
 /android/app/debug
 /android/app/profile
 /android/app/release
-/android/app/google-services.json
+#/android/app/google-services.json

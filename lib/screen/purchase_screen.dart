@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:kozarni_ecome/controller/home_controller.dart';
 import 'package:kozarni_ecome/data/constant.dart';
@@ -7,9 +8,14 @@ import 'package:kozarni_ecome/model/purchase.dart';
 import 'package:kozarni_ecome/routes/routes.dart';
 import 'package:photo_view/photo_view.dart';
 
-class PurchaseScreen extends StatelessWidget {
+class PurchaseScreen extends StatefulWidget {
   const PurchaseScreen({Key? key}) : super(key: key);
 
+  @override
+  State<PurchaseScreen> createState() => _PurchaseScreenState();
+}
+
+class _PurchaseScreenState extends State<PurchaseScreen> {
   @override
   Widget build(BuildContext context) {
     final HomeController controller = Get.find();
@@ -52,40 +58,81 @@ class PurchaseScreen extends StatelessWidget {
   }
 
   Widget cashOnDeliveryCustomer() {
+    debugPrint("****SetStateMake");
     HomeController controller = Get.find();
     return ListView.builder(
-      itemCount: controller.purchcasesCashOn().length,
+      itemCount: controller.purchcases.length,
       itemBuilder: (_, i) {
-        List town = controller.purchcasesCashOn()[i].deliveryTownshipInfo;
+        final PurchaseModel pModel = controller.purchcases[i];
+        if (!(pModel.bankSlipImage == null)) {
+          return Container();
+        }
+        List town = pModel.deliveryTownshipInfo;
         final shipping = town[1];
         final townName = town[0];
+        debugPrint("************${pModel.name} :${pModel.complete}");
         return ListTile(
-          title: Text(
-              "${controller.purchcasesCashOn()[i].name} 0${controller.purchcasesCashOn()[i].phone}"),
+          title: Text("${pModel.name} 0${pModel.phone}"),
           subtitle: Text(
-              "${controller.purchcasesCashOn()[i].dateTime?.day}/${controller.purchcasesCashOn()[i].dateTime?.month}/${controller.purchcasesCashOn()[i].dateTime?.year}"),
-          trailing: IconButton(
-            onPressed: () {
-              int total = 0;
-              for (var item in controller.purchcasesCashOn()[i].items) {
-                total += int.parse(item.toString().split(',').last) *
-                    int.parse(item.toString().split(',')[4]);
-              }
+              "${pModel.dateTime?.day}/${pModel.dateTime?.month}/${pModel.dateTime?.year}"),
+          trailing: SizedBox(
+            width: 150,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                //Show Detail
 
-              print(controller.purchcasesCashOn()[i].items.length);
-              Get.defaultDialog(
-                title: "Customer ၀ယ်ယူခဲ့သော အချက်အလက်များ",
-                titleStyle: TextStyle(fontSize: 12),
-                radius: 5,
-                content: purchaseDialogBox(
-                    i: i,
-                    total: total,
-                    shipping: shipping,
-                    township: townName,
-                    list: controller.purchcasesCashOn()),
-              );
-            },
-            icon: Icon(Icons.info),
+                IconButton(
+                  onPressed: () {
+                    int total = 0;
+                    for (var item in pModel.items) {
+                      total += int.parse(item.toString().split(',').last) *
+                          int.parse(item.toString().split(',')[4]);
+                    }
+
+                    print(pModel.items.length);
+                    Get.defaultDialog(
+                      title: "Customer ၀ယ်ယူခဲ့သော အချက်အလက်များ",
+                      titleStyle: TextStyle(fontSize: 12),
+                      radius: 5,
+                      content: purchaseDialogBox(
+                          i: i,
+                          total: total,
+                          shipping: shipping,
+                          township: townName,
+                          list: controller.purchcasesCashOn()),
+                    );
+                  },
+                  icon: Icon(Icons.info),
+                ),
+
+                //Make Complete Icon
+                IconButton(
+                  onPressed: () async {
+                    debugPrint("******pModelID: ${pModel.id}");
+                    controller.purchcases[controller.purchcases
+                            .indexWhere((element) => element.id == pModel.id)] =
+                        pModel.copyWith(complete: true);
+                    await controller.makeOrderComplete(pModel);
+                    setState(() {});
+                    /*Future.delayed(const Duration(seconds: 3), () {
+                      setState(() {});
+                    });*/
+                  },
+                  icon: (!(pModel.complete == null) && pModel.complete == true)
+                      ? Icon(
+                          FontAwesomeIcons.checkCircle,
+                          size: 35,
+                          color: Colors.green,
+                        )
+                      : Icon(
+                          FontAwesomeIcons.checkCircle,
+                          size: 35,
+                          color: Colors.black,
+                        ),
+                )
+              ],
+            ),
           ),
         );
       },
@@ -95,11 +142,15 @@ class PurchaseScreen extends StatelessWidget {
   Widget prePayCustomer() {
     HomeController controller = Get.find();
     return ListView.builder(
-      itemCount: controller.purchcasesPrePay().length,
+      itemCount: controller.purchcases.length,
       itemBuilder: (_, i) {
-        List town = controller.purchcasesPrePay()[i].deliveryTownshipInfo;
+        final pModel = controller.purchcases[i];
+        List town = pModel.deliveryTownshipInfo;
         final shipping = town[1];
         final townName = town[0];
+        if (pModel.bankSlipImage == null) {
+          return Container();
+        }
         return AspectRatio(
           aspectRatio: 16 / 4,
           child: Card(
@@ -114,13 +165,12 @@ class PurchaseScreen extends StatelessWidget {
                     child: ListTile(
                       onTap: () {
                         int total = 0;
-                        for (var item
-                            in controller.purchcasesPrePay()[i].items) {
+                        for (var item in pModel.items) {
                           total += int.parse(item.toString().split(',').last) *
                               int.parse(item.toString().split(',')[4]);
                         }
+                        print(pModel.items.length);
 
-                        print(controller.purchcasesPrePay()[i].items.length);
                         Get.defaultDialog(
                           title: "Customer ၀ယ်ယူခဲ့သော အချက်အလက်များ",
                           titleStyle: TextStyle(fontSize: 12),
@@ -130,13 +180,39 @@ class PurchaseScreen extends StatelessWidget {
                               total: total,
                               shipping: shipping,
                               township: townName,
-                              list: controller.purchcasesPrePay()),
+                              list: controller.purchcases),
                         );
                       },
-                      title: Text(
-                          "${controller.purchcasesPrePay()[i].name} 0${controller.purchcasesPrePay()[i].phone}"),
+                      title: Text("${pModel.name} 0${pModel.phone}"),
                       subtitle: Text(
-                          "${controller.purchcasesPrePay()[i].dateTime?.day}/${controller.purchcasesPrePay()[i].dateTime?.month}/${controller.purchcasesPrePay()[i].dateTime?.year}"),
+                          "${pModel.dateTime?.day}/${pModel.dateTime?.month}/${pModel.dateTime?.year}"),
+                      trailing: //Make Complete Icon
+                          IconButton(
+                        onPressed: () async {
+                          debugPrint("******pModelID: ${pModel.id}");
+                          controller.purchcases[controller.purchcases
+                                  .indexWhere(
+                                      (element) => element.id == pModel.id)] =
+                              pModel.copyWith(complete: true);
+                          await controller.makeOrderComplete(pModel);
+                          setState(() {});
+                          /*Future.delayed(const Duration(seconds: 3), () {
+                      setState(() {});
+                    });*/
+                        },
+                        icon: (!(pModel.complete == null) &&
+                                pModel.complete == true)
+                            ? Icon(
+                                FontAwesomeIcons.checkCircle,
+                                size: 35,
+                                color: Colors.green,
+                              )
+                            : Icon(
+                                FontAwesomeIcons.checkCircle,
+                                size: 35,
+                                color: Colors.black,
+                              ),
+                      ),
                     ),
                   ),
                   //PhotoView
@@ -150,20 +226,14 @@ class PurchaseScreen extends StatelessWidget {
                           context: Get.context!,
                           builder: (context) {
                             return photoViewer(
-                                heroTags: controller
-                                        .purchcasesPrePay()[i]
-                                        .bankSlipImage ??
-                                    "");
+                                heroTags: pModel.bankSlipImage ?? "");
                           },
                         );
                       },
                       child: Hero(
-                        tag: controller.purchcasesPrePay()[i].bankSlipImage ??
-                            "",
+                        tag: pModel.bankSlipImage ?? "",
                         child: CachedNetworkImage(
-                          imageUrl:
-                              controller.purchcasesPrePay()[i].bankSlipImage ??
-                                  "",
+                          imageUrl: pModel.bankSlipImage ?? "",
                           fit: BoxFit.fill,
                           progressIndicatorBuilder: (context, url, status) {
                             return Center(

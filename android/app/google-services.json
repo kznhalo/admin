@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "898728650744",
+    "project_id": "halo-shop",
+    "storage_bucket": "halo-shop.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:898728650744:android:0e358f152498d9eef0980d",
+        "android_client_info": {
+          "package_name": "com.kzn.halo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "898728650744-ejr8pccmgpb0sc03f8q487sj61qv7vrl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCF-Ku8rT5Pp2kZ1PYASNBE2T0uyFmjhrY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "898728650744-ejr8pccmgpb0sc03f8q487sj61qv7vrl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "898728650744-6o3to53fp352lbu162q36bbcccedcbk1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kzn.halo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

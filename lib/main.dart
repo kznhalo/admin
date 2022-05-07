@@ -19,8 +19,8 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await FirebaseMessaging.instance
-      .subscribeToTopic('order'); //Don't change topic text
+  //await FirebaseMessaging.instance
+      //.subscribeToTopic('order'); //Don't change topic text
   FirebaseFunctions.instance.useFunctionsEmulator('localhost', 5554);
   await Hive.initFlutter();
   Hive.registerAdapter<HiveItem>(HiveItemAdapter());
