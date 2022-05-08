@@ -77,8 +77,10 @@ class Auth {
     });
   }
 
-  Future<void> loginWithCerdential(AuthCredential credential) =>
-      _firebaseAuth.signInWithCredential(credential);
+  Future<void> loginWithCerdential(PhoneAuthCredential credential) async {
+    debugPrint("*********LOginVerificaitonID: ${credential.providerId}");
+    await _firebaseAuth.signInWithCredential(credential);
+  }
 
   Future<void> logout() => _firebaseAuth.signOut();
 }
